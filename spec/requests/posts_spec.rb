@@ -14,12 +14,12 @@ RSpec.describe 'API POSTS' do
       valid_params = { tags: 'science,tech,health', sortBy: 'likes', direction: 'desc' }
       VCR.use_cassette('valid_params') do
         get api_posts_path, params: valid_params
-        json = JSON.parse(response.body, symbolize_names: true)
-        expect(json[:posts].count).to eq(69)
-        expect(json[:posts].first[:author]).to eq('Zackery Turner')
-        expect(json[:posts].first[:likes]).to eq(992)
-        expect(json[:posts].last[:id]).to eq(85)
-        expect(json[:posts].last[:likes]).to eq(25)
+        json = JSON.parse(response.body)
+        expect(json['posts'].count).to eq(69)
+        expect(json['posts'].first['author']).to eq('Zackery Turner')
+        expect(json['posts'].first['likes']).to eq(992)
+        expect(json['posts'].last['id']).to eq(85)
+        expect(json['posts'].last['likes']).to eq(25)
       end
     end
     context 'when tags parameter is missing' do

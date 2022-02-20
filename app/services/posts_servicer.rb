@@ -6,9 +6,12 @@ class PostsServicer
   end
 
   def generate_responses(queries)
-    tags = queries.gsub(',', ' ').split
-    tags.map do |tag|
-      @client.get_tags(tag)[:posts]
+    tags(queries).map do |tag|
+      @client.get_tags(tag)['posts']
     end.flatten.uniq
+  end
+
+  def tags(queries)
+    queries.gsub(',', ' ').split
   end
 end
